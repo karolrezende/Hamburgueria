@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { ButtonStyled } from "../Button/ButtonStyled"
 import styles from './styles.module.scss'
 import * as yup from 'yup'; 
@@ -7,6 +7,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import {api} from '../../app/api'
 import { toast } from "react-toastify";
 import {AxiosError} from 'axios';
+import { useContextProvider } from "../../providers/Provider";
 
 interface iPropsForm {
     state: string
@@ -27,15 +28,27 @@ function LoginForm() {
         password: yup.string().required("Digite sua senha"),
     });
     
+    
+    const { register, handleSubmit, formState:{errors}} = useForm<iLogin>({resolver: yupResolver(schema)})
+    
     interface iLogin{
         email: string, 
         password: string
     }
-    
-    const { register, handleSubmit, formState:{errors}} = useForm<iLogin>({resolver: yupResolver(schema)})
-
-    function handleLoginSubmit(data: iLogin){
-        console.log(data)
+    interface iLoginApi extends iLogin{
+        accessToken: string
+    }
+    const navigate = useNavigate()
+    const {setterToken} = useContextProvider()
+    async function handleLoginSubmit(data: iLogin){
+        const response = await api.post<iLoginApi>('/login',{
+            email: data.email,
+            password: data.password
+        })
+        console.log(response.data.accessToken)
+        const token = response.data.accessToken
+        setterToken({token})
+        navigate('/home')
     }
 
     return (
