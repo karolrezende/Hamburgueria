@@ -1,0 +1,36 @@
+@import '../../globalStyles.scss';
+.main{
+    margin: 1em;
+    &_container1{
+        margin-top: 5em;
+        img{
+            margin-bottom: 1em; 
+        }
+        &__circles{
+            display: none;
+        }
+    }
+}
+
+@media screen and (min-width: 800px) {
+    .main{
+        height: 100vh;
+        margin: 0 15em;
+        gap: 2em;
+        display: flex;
+        align-items: center;
+        flex-direction: row-reverse;
+        &_container1{
+            height: 250px;
+            display: flex;
+            gap: 40px;
+            flex-direction: column;
+            &__circles{
+                display: flex;
+            }
+        }
+        &_container2{
+            flex-basis: 80%;
+        }
+    }
+}

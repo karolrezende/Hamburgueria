@@ -1,0 +1,29 @@
+@import '../../globalStyles.scss';
+.container{
+    width: 100%;
+    height: 100px;
+    border: 1px solid $grey-20;
+    border-radius: 8px;
+    &_div{
+        margin: .5em;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        &__bag{
+            background-color: $color-primary-50;
+            width: 40%;
+            height: 70px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        &__text{
+            p{
+                text-align: justify;
+                font-size: 16px;
+            }
+        }
+    }
+}
