@@ -1,7 +1,11 @@
-import React from 'react'
+import Card from "../../components/Card/Card";
+import HeaderHome from "../../components/HeaderHome/HeaderHome";
 
 export default function Home() {
   return (
-    <div>Home</div>
+    <div>
+      <HeaderHome/>
+      <Card/>
+    </div>
   )
 }

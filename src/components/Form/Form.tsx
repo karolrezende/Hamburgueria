@@ -45,7 +45,6 @@ function LoginForm() {
             email: data.email,
             password: data.password
         })
-        console.log(response.data.accessToken)
         const token = response.data.accessToken
         setterToken({token})
         navigate('/home')
