@@ -4,10 +4,9 @@ import Product from "../Product/Product"
 import styles from './styles.module.scss'
 export default function Card() {
   const {products} = useCartContext()
-  console.log(products)
   return (
     <div className={styles.div}>
-      {products ? products.map((hamburguer: iProducts)=> <Product hamburguer={hamburguer}/>) : ''}
+      {products.length !== undefined ? products.map((hamburguer: iProducts)=> <Product key={hamburguer.id} hamburguer={hamburguer}/>) : ''}
     </div>
   )
 }

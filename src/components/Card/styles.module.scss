@@ -5,3 +5,10 @@
     overflow-x:scroll;
     margin-top: 4em;
 }
+@media screen and (min-width: 800px) {
+    .div{
+        display: flex;
+        flex-wrap: nowrap;
+        overflow: hidden;
+    }
+}
