@@ -38,7 +38,12 @@ export const ProviderHome = ({children}: iPropsProvider)=>{
     }, [])
     
     function addCart(hamburguer :iProducts){
-        setCart([...cart, hamburguer])
+        if(cart.includes(hamburguer)){
+            setCart([...cart])
+        }else{
+            setCart([...cart, hamburguer])
+        }
+        
     }
     console.log(cart)
     return(
