@@ -1,10 +1,11 @@
 import trash from '../../../public/trash.svg'
-import { iProducts } from '../../providers/ProviderHome'
+import { iProducts, useCartContext } from '../../providers/ProviderHome'
 import styles from './styles.module.scss'
 interface iProp{
   prod: iProducts
 }
 export default function CartProd({prod}: iProp) {
+  const {removeCart}= useCartContext()
   return (
     <div className={styles.burguer}>
         <div className={styles.burguer_mr}>
@@ -15,7 +16,7 @@ export default function CartProd({prod}: iProp) {
               <div>algo</div>
             </div>
           </div>
-          <img src={trash} alt="" className={styles.burguer_mr__img2}/>
+          <img src={trash} alt="" className={styles.burguer_mr__img2} onClick={()=>removeCart(prod)}/>
         </div>
     </div>
   )

@@ -6,6 +6,7 @@ interface iPropsProvider {
 interface iContext {
     token: string;
     setterToken: ({token} : iRequestToken)=> void
+    logOut: () => void
 }
 
 interface iRequestToken {
@@ -20,9 +21,11 @@ export const Provider = ({children}: iPropsProvider) =>{
     const setterToken = ({token} : iRequestToken)=>{
         setToken(token)
     }
-
+    const logOut = () => {
+        setToken('')
+    }
     return(
-        <Context.Provider value={{token, setterToken}}>
+        <Context.Provider value={{token, setterToken, logOut}}>
             {children}
         </Context.Provider>
     )

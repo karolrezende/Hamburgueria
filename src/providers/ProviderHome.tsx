@@ -9,7 +9,10 @@ interface iPropsProvider {
 interface iPropsContext{
     products: iProducts[],
     addCart: (hamburguer: iProducts) => void
+    removeCart: (hamburguer: iProducts)=> void
+    cleanCart: () => void
     cart: iProducts[]
+    total: number
 }
 export interface iProducts{
     id: number,
@@ -23,6 +26,7 @@ const ContextCart = createContext<iPropsContext>({} as iPropsContext)
 export const ProviderHome = ({children}: iPropsProvider)=>{
     const [products, setProducts] = useState<iProducts[]>({} as iProducts[])
     const [cart, setCart] = useState<iProducts[]>([])
+    const [total, setTotal]= useState(0)
     const {token} = useContextProvider()
 
     useEffect(()=>{
@@ -43,11 +47,23 @@ export const ProviderHome = ({children}: iPropsProvider)=>{
         }else{
             setCart([...cart, hamburguer])
         }
-        
     }
-    console.log(cart)
+    function removeCart(hamburguer: iProducts){
+        setCart(cart.filter(burguer=> hamburguer.id !== burguer.id))
+    }
+    function cleanCart(){
+        setCart([])
+        setTotal(0)
+    }
+    useEffect(()=>{
+        function getTotal(){
+            cart.map(prod=> setTotal(prod.price+total))
+        }
+        getTotal()
+    }, [cart])
+    console.log(total)
     return(
-        <ContextCart.Provider value={{products, addCart, cart}}>
+        <ContextCart.Provider value={{products, addCart, cart, removeCart, total, cleanCart}}>
             {children}
         </ContextCart.Provider>
     )

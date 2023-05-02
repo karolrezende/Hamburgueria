@@ -1,3 +1,4 @@
+/* eslint-disable no-constant-condition */
 import { Link, useNavigate } from "react-router-dom"
 import { ButtonStyled } from "../Button/ButtonStyled"
 import styles from './styles.module.scss'
@@ -5,8 +6,8 @@ import * as yup from 'yup';
 import { useForm } from "react-hook-form"; 
 import { yupResolver } from '@hookform/resolvers/yup'; 
 import {api} from '../../app/api'
-import { toast } from "react-toastify";
-import {AxiosError} from 'axios';
+import { toast} from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 import { useContextProvider } from "../../providers/Provider";
 
 interface iPropsForm {
@@ -97,10 +98,6 @@ function SigninForm() {
         repassword: string
     }
     type iSignApi = Omit<iSign, 'repassword'>   
-
-    interface iError {
-        err: string,
-    }
     const { register, handleSubmit, formState:{errors}} = useForm<iSign>({resolver: yupResolver(schema)})
 
     async function handleSignSubmit(data: iSignApi){
@@ -108,13 +105,52 @@ function SigninForm() {
             email: data.email,
             password: data.password,
             name: data.name
-        }).catch((err) => {
-            console.log(err)
-                const currentError = err as AxiosError <iError>
-                toast.error(currentError.response?.data.err)
+        }).then(
+            res=>{
+                if(res.status === 201){
+                    console.log(res.status)
+                    toast("Criado com sucesso!", {
+                        icon: "😎",
+                        position: "top-right",
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "light",
+                    })
+                        
+                }else
+                if(res.status === 400 ||401 || 404|| 403){
+                    toast('Ops, algo deu errado, tente de novo', {
+                        icon: "😭",
+                        position: "top-right",
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "light"
+                    })  
+                }
+
+            }
+        ).catch(() => {
+            toast('Ops, algo deu errado, tente de novo', {
+                icon: "😭",
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light"
+            })  
             }
         )
-        console.log(response)
     }
 
     return (
