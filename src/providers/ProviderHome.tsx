@@ -38,6 +38,7 @@ export const ProviderHome = ({children}: iPropsProvider)=>{
             }).then (
                 res => setProducts(res.data)
             )
+            console.log(myProducts)
         }getProduct()
     }, [])
     
@@ -61,7 +62,6 @@ export const ProviderHome = ({children}: iPropsProvider)=>{
         }
         getTotal()
     }, [cart])
-    console.log(total)
     return(
         <ContextCart.Provider value={{products, addCart, cart, removeCart, total, cleanCart}}>
             {children}

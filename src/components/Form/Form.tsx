@@ -108,7 +108,6 @@ function SigninForm() {
         }).then(
             res=>{
                 if(res.status === 201){
-                    console.log(res.status)
                     toast("Criado com sucesso!", {
                         icon: "😎",
                         position: "top-right",
@@ -151,8 +150,8 @@ function SigninForm() {
             })  
             }
         )
+        console.log(response)
     }
-
     return (
         <div className={styles.container}>
             <div className={styles.container_mr}>
